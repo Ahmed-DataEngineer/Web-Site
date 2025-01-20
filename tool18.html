@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="fav.png" type="image/x-icon">
+    <title>QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .options {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .qr-code {
+            margin-top: 20px;
+        }
+
+        #qrcode {
+            margin-top: 20px;
+        }
+
+        #download-button {
+            background-color: #28a745;
+        }
+
+        #download-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>QR Code Generator</h1>
+        <div class="options">
+            <label for="qr-content">Content:</label>
+            <input type="text" id="qr-content" placeholder="Enter URL, WhatsApp number, text, or email">
+            <select id="qr-type">
+                <option value="url">URL</option>
+                <option value="whatsapp">WhatsApp</option>
+                <option value="text">Text</option>
+                <option value="email">Email</option>
+            </select>
+            <button id="generate-button">Generate QR Code</button>
+        </div>
+        <div class="qr-code">
+            <div id="qrcode"></div>
+            <a id="download-link" download="qrcode.png">
+                <button id="download-button">Download QR Code</button>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+    <script>
+        document.getElementById("generate-button").addEventListener("click", function() {
+            var content = document.getElementById("qr-content").value;
+            var type = document.getElementById("qr-type").value;
+
+            if (content.trim() === "") {
+                alert("Please enter content to generate QR code.");
+                return;
+            }
+
+            // Format the content to match the selected QR type
+            var qrContent = "";
+            if (type === "url") {
+                qrContent = content;  // Direct URL for QR code
+            } else if (type === "whatsapp") {
+                qrContent = "https://wa.me/" + content;  // WhatsApp link
+            } else if (type === "email") {
+                qrContent = "mailto:" + content;  // Email link
+            } else if (type === "text") {
+                qrContent = content;  // Plain text
+            }
+
+            // Create the QR code
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: qrContent,
+                width: 128,
+                height: 128,
+            });
+
+            // Enable download for QR Code image
+            document.getElementById("download-link").addEventListener("click", function() {
+                var canvas = document.querySelector("#qrcode canvas");
+                var imgData = canvas.toDataURL("image/png");
+                var link = document.createElement('a');
+                link.href = imgData;
+                link.download = "qrcode.png";
+                link.click();
+            });
+        });
+    </script>
+
+</body>
+</html>

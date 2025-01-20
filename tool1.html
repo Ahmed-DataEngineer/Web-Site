@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="fav.png" type="image/x-icon">
+    <title>Text to Binary Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #output {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text to Binary Converter</h1>
+        <label for="text">Enter Text:</label>
+        <textarea id="text" placeholder="Enter text here"></textarea>
+        <button onclick="convertTextToBinary()">Convert</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function convertTextToBinary() {
+            const text = document.getElementById('text').value;
+            let binaryText = '';
+
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charCodeAt(i);
+                const binary = char.toString(2);
+                binaryText += binary.padStart(8, '0') + ' '; // Ensure each binary representation is 8 bits long
+            }
+
+            document.getElementById('output').textContent = 'Binary: ' + binaryText;
+        }
+    </script>
+</body>
+</html>

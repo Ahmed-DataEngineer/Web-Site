@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="fav.png" type="image/x-icon">
+    <title>Word & Character Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+        #output {
+            text-align: left;
+            font-weight: bold;
+        }
+        #word-count {
+            color: #00a0d2;
+        }
+        #char-count {
+            color: #ff5722;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word & Character Counter</h1>
+        <textarea id="input-text" placeholder="Enter your text here..."></textarea>
+        <div id="output">
+            <p>Word Count: <span id="word-count">0</span></p>
+            <p>Character Count: <span id="char-count">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        const textarea = document.getElementById('input-text');
+        const wordCountDisplay = document.getElementById('word-count');
+        const charCountDisplay = document.getElementById('char-count');
+
+        textarea.addEventListener('input', () => {
+            const text = textarea.value;
+            const words = text.trim().split(/\s+/);
+            const characters = text.length;
+
+            wordCountDisplay.textContent = words.length;
+            charCountDisplay.textContent = characters;
+        });
+    </script>
+</body>
+</html>

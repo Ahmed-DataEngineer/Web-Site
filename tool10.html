@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="fav.png" type="image/x-icon">
+    <title>Fake Address Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 40px;
+        }
+
+        .generator {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #address-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Fake Address Generator</h1>
+    </header>
+
+    <main>
+        <div class="generator">
+            <button id="generate-button">Generate Address</button>
+            <div id="address-container">
+                <h2>Generated Address:</h2>
+                <div id="address-details"></div>
+            </div>
+        </div>
+    </main>
+
+    
+
+    <script>
+        // Fake address data with 100 random addresses
+        const streets = [
+            "Baker St", "Elm St", "Main St", "Highland Ave", "Sunset Blvd", "King St", "Oak St", 
+            "Pine St", "River Rd", "Park Ave", "Mountain View", "Lakeshore Dr", "Cedar St", "Maple St", 
+            "Broadway", "5th Ave", "6th St", "North Rd", "West Rd", "South Ave", "East Ave", "Central Ave", 
+            "Chestnut St", "Beach Blvd", "Victory Rd", "Hilltop Ln", "Valley Dr", "Windsor Rd", "Fox Ln", 
+            "Glenwood Dr", "Bay St", "Royal Blvd", "Ashwood Dr", "Clearview Ave", "Greenfield St", "Linden Ave",
+            "Sunrise Rd", "Redwood Dr", "Violet Ave", "Morningstar Blvd", "Dove St", "Willow Rd", "Shady Ln",
+            "Cottonwood St", "Cypress Blvd", "Silver Creek Rd", "Old Mill Rd", "Thunder Rd", "Seabreeze Ave",
+            "Canyon Rd", "Maplewood Dr", "Ocean View Blvd", "Golden Gate St", "Crescent Rd", "Bluebird St",
+            "Liberty St", "Fawn Ln", "Springfield Ave", "Sierra Rd", "Lighthouse Rd", "Silverstone Dr",
+            "Victory Ln", "Pinehill Rd", "Whitehall Ave", "Blackstone Blvd", "Diamond St", "Starwood Dr",
+            "Sunset Park Rd", "Turtle Creek Rd", "Orchard Rd", "Wildwood Dr", "Evergreen Blvd", "Blue Ridge Rd",
+            "Morning Dew Rd", "Golden Oak St", "Sunshine Blvd", "Autumn Rd", "Rosewood Dr", "Ironwood Ln",
+            "Shadow Ln", "Crystal Springs Blvd", "Crescent Hills Dr", "Snowbird Rd", "Alpine Ave", "Windmill Ln",
+            "Prairie St", "Sunflower Ln", "Frost Rd", "Rainbow Blvd", "Sunlit Dr", "Kingsley Rd", "Parkwood Ave",
+            "Summerhill Dr", "Applewood Blvd", "Riverside Ave", "Timberline Rd", "Rolling Hills Rd", "Sandstone Blvd",
+            "Redhawk Dr", "Whispering Pines Ln", "Horizon Blvd", "Iron Horse Rd", "Carriage Ln", "Whisperwood Rd"
+        ];
+        
+        const cities = [
+            "London", "New York", "Los Angeles", "Paris", "Tokyo", "Sydney", "Berlin", "Toronto", "Rome",
+            "Moscow", "Mumbai", "Barcelona", "Dubai", "Madrid", "Chicago", "Shanghai", "Delhi", "Amsterdam",
+            "Cairo", "Mexico City", "Cape Town", "Rio de Janeiro", "Singapore", "Hong Kong", "Istanbul",
+            "Bangkok", "Seoul", "Jakarta", "Buenos Aires", "Lagos", "Oslo", "Melbourne", "San Francisco",
+            "Montreal", "Lisbon", "Kuala Lumpur", "São Paulo", "Stockholm", "Vienna", "Athens", "Warsaw",
+            "Hong Kong", "Lima", "Vienna", "Zurich", "Abu Dhabi", "Vancouver", "Brussels", "Copenhagen", "Milan",
+            "Helsinki", "Osaka", "Geneva", "Bucharest", "Prague", "Manila", "Nairobi", "Quito", "Lagos"
+        ];
+        
+        const states = [
+            "California", "Texas", "Florida", "New York", "Nevada", "Illinois", "Georgia", "Ohio", "North Carolina",
+            "Michigan", "Arizona", "Pennsylvania", "Tennessee", "Indiana", "Missouri", "Maryland", "Wisconsin",
+            "Colorado", "Minnesota", "South Carolina", "Alabama", "Louisiana", "Kentucky", "Oregon", "Connecticut",
+            "Oklahoma", "Iowa", "Mississippi", "Arkansas", "Kansas", "Utah", "Nevada", "Nebraska", "West Virginia",
+            "Idaho", "Hawaii", "New Mexico", "Montana", "North Dakota", "South Dakota", "Alaska", "Delaware",
+            "Maine", "New Hampshire", "Rhode Island", "Vermont", "Wyoming"
+        ];
+
+        const zipCodes = [
+            "10001", "90001", "20001", "30301", "94105", "75201", "60601", "48201", "60611", "33101",
+            "94102", "10011", "30303", "20009", "98101", "46204", "92101", "48226", "74136", "84101",
+            "37203", "44114", "71101", "33139", "20015", "75204", "96813", "70112", "94158", "60101",
+            "90017", "02139", "60201", "21201", "30309", "33301", "75228", "10025", "75252", "30327",
+            "62701", "89109", "63101", "64108", "96815", "60610", "10016", "94103", "20036", "40001",
+            "55101", "97201", "30318", "46202", "98109", "63103", "94110", "94109", "90028", "90210",
+            "75001", "28205", "42301", "75006", "91367", "76010", "63021", "94112", "94301", "63108"
+        ];
+
+        function getRandomElement(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function generateAddress() {
+            const street = getRandomElement(streets);
+            const city = getRandomElement(cities);
+            const state = getRandomElement(states);
+            const zipCode = getRandomElement(zipCodes);
+
+            return `${street}, ${city}, ${state} ${zipCode}`;
+        }
+
+        document.getElementById("generate-button").addEventListener("click", function () {
+            const address = generateAddress();
+            document.getElementById("address-details").textContent = address;
+            document.getElementById("address-container").style.display = 'block';
+        });
+    </script>
+
+</body>
+</html>

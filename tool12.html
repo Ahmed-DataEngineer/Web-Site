@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="fav.png" type="image/x-icon">
+    <title>Discounted Cash Flow Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 24px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Discounted Cash Flow Calculator</h1>
+        <label for="cashFlow">Cash Flow per Year:</label>
+        <input type="number" id="cashFlow" placeholder="Enter cash flow">
+        
+        <label for="discountRate">Discount Rate (%):</label>
+        <input type="number" id="discountRate" placeholder="Enter discount rate">
+        
+        <label for="years">Number of Years:</label>
+        <input type="number" id="years" placeholder="Enter number of years">
+        
+        <button onclick="calculateDCF()">Calculate DCF</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateDCF() {
+            const cashFlow = parseFloat(document.getElementById('cashFlow').value);
+            const discountRate = parseFloat(document.getElementById('discountRate').value);
+            const years = parseInt(document.getElementById('years').value);
+
+            if (isNaN(cashFlow) || isNaN(discountRate) || isNaN(years) || years <= 0) {
+                alert('Please enter valid numbers.');
+                return;
+            }
+
+            let totalDCF = 0;
+            for (let year = 1; year <= years; year++) {
+                const discountedCashFlow = cashFlow / Math.pow(1 + discountRate / 100, year);
+                totalDCF += discountedCashFlow;
+            }
+
+            document.getElementById('result').textContent = `Total DCF: $${totalDCF.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="fav.png" type="image/x-icon">
+    <title>Equity Calculator</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Additional Custom CSS */
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .alert {
+            text-align: center;
+        }
+        .btn-custom {
+            width: 100%;
+        }
+        input[type="number"] {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Equity Calculator</h1>
+        <div class="form-group">
+            <label for="total-investment">Total Investment (USD):</label>
+            <input type="number" id="total-investment" class="form-control" placeholder="Enter total investment" required>
+        </div>
+        <div class="form-group">
+            <label for="percentage-ownership">Percentage Ownership (%):</label>
+            <input type="number" id="percentage-ownership" class="form-control" placeholder="Enter percentage ownership" required>
+        </div>
+        <button id="calculate-button" class="btn btn-primary btn-custom">Calculate Equity</button>
+        <div id="result" class="mt-3"></div>
+        <button id="reset-button" class="btn btn-secondary btn-custom mt-3">Reset</button>
+    </div>
+
+    <!-- Add Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // JavaScript functionality
+        document.getElementById('calculate-button').addEventListener('click', function () {
+            const totalInvestment = parseFloat(document.getElementById('total-investment').value);
+            const ownershipPercentage = parseFloat(document.getElementById('percentage-ownership').value);
+
+            // Input validation
+            if (isNaN(totalInvestment) || isNaN(ownershipPercentage) || totalInvestment <= 0 || ownershipPercentage <= 0 || ownershipPercentage > 100) {
+                document.getElementById('result').innerHTML = '<div class="alert alert-danger">Please enter valid numbers. Ensure that the ownership percentage is between 0 and 100, and the investment is greater than zero.</div>';
+            } else {
+                const equity = (ownershipPercentage / 100) * totalInvestment;
+                document.getElementById('result').innerHTML = `<div class="alert alert-success">Your equity is $${equity.toFixed(2)}</div>`;
+            }
+        });
+
+       
+        document.getElementById('reset-button').addEventListener('click', function () {
+            document.getElementById('total-investment').value = '';
+            document.getElementById('percentage-ownership').value = '';
+            document.getElementById('result').innerHTML = '';
+        });
+    </script>
+</body>
+</html>

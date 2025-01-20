@@ -1,0 +1,73 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="fav.png" type="image/x-icon">
+    <title>Fake Name Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fake Name Generator</h1>
+        <p>Click the button below to generate a fake name:</p>
+        <button id="generateBtn">Generate Name</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        const firstNames = ["John", "Jane", "David", "Emily", "Michael", "Olivia"];
+        const lastNames = ["Smith", "Johnson", "Brown", "Lee", "Davis", "Wilson"];
+
+        function getRandomElement(arr) {
+            const randomIndex = Math.floor(Math.random() * arr.length);
+            return arr[randomIndex];
+        }
+
+        document.getElementById("generateBtn").addEventListener("click", function () {
+            const firstName = getRandomElement(firstNames);
+            const lastName = getRandomElement(lastNames);
+            const fullName = `${firstName} ${lastName}`;
+            document.getElementById("output").textContent = fullName;
+        });
+    </script>
+</body>
+</html>

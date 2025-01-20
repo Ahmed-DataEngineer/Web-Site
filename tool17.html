@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="fav.png" type="image/x-icon">
+    <title>Country Code Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+        h1 {
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            font-weight: bold;
+            color: #007BFF;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Country Code Finder</h1>
+        <label for="countryInput">Enter Country Name:</label>
+        <input type="text" id="countryInput" placeholder="e.g., United States">
+        <button onclick="findCountryCode()">Find Code</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function findCountryCode() {
+            const countryInput = document.getElementById("countryInput").value.trim().toLowerCase();
+            const countryCode = getCountryCode(countryInput);
+            
+            if (countryCode) {
+                document.getElementById("result").innerHTML = `Country Code for ${capitalizeFirstLetter(countryInput)}: <strong>${countryCode}</strong>`;
+            } else {
+                document.getElementById("result").innerHTML = `Country not found. Please check the spelling.`;
+            }
+        }
+
+        function getCountryCode(countryName) {
+            const countryCodes = {
+                "afghanistan": "+93",
+                "albania": "+355",
+                "algeria": "+213",
+                "andorra": "+376",
+                "angola": "+244",
+                "antigua and barbuda": "+1-268",
+                "argentina": "+54",
+                "armenia": "+374",
+                "australia": "+61",
+                "austria": "+43",
+                "azerbaijan": "+994",
+                "bahamas": "+1-242",
+                "bahrain": "+973",
+                "bangladesh": "+880",
+                "barbados": "+1-246",
+                "belarus": "+375",
+                "belgium": "+32",
+                "belize": "+501",
+                "benin": "+229",
+                "bhutan": "+975",
+                "bolivia": "+591",
+                "bosnia and herzegovina": "+387",
+                "botswana": "+267",
+                "brazil": "+55",
+                "brunei": "+673",
+                "bulgaria": "+359",
+                "burkina faso": "+226",
+                "burundi": "+257",
+                "cabo verde": "+238",
+                "cambodia": "+855",
+                "cameroon": "+237",
+                "canada": "+1",
+                "central african republic": "+236",
+                "chad": "+235",
+                "chile": "+56",
+                "china": "+86",
+                "colombia": "+57",
+                "comoros": "+269",
+                "congo (congo-brazzaville)": "+242",
+                "congo (democratic republic of the congo)": "+243",
+                "costa rica": "+506",
+                "croatia": "+385",
+                "cuba": "+53",
+                "cyprus": "+357",
+                "czechia": "+420",
+                "denmark": "+45",
+                "djibouti": "+253",
+                "dominica": "+1-767",
+                "dominican republic": "+1-809",
+                "ecuador": "+593",
+                "egypt": "+20",
+                "el salvador": "+503",
+                "equatorial guinea": "+240",
+                "eritrea": "+291",
+                "estonia": "+372",
+                "eswatini": "+268",
+                "ethiopia": "+251",
+                "fiji": "+679",
+                "finland": "+358",
+                "france": "+33",
+                "gabon": "+241",
+                "gambia": "+220",
+                "georgia": "+995",
+                "germany": "+49",
+                "ghana": "+233",
+                "greece": "+30",
+                "grenada": "+1-473",
+                "guatemala": "+502",
+                "guinea": "+224",
+                "guinea-bissau": "+245",
+                "guyana": "+592",
+                "haiti": "+509",
+                "honduras": "+504",
+                "hungary": "+36",
+                "iceland": "+354",
+                "india": "+91",
+                "indonesia": "+62",
+                "iran": "+98",
+                "iraq": "+964",
+                "ireland": "+353",
+                "israel": "+972",
+                "italy": "+39",
+                "jamaica": "+1-876",
+                "japan": "+81",
+                "jordan": "+962",
+                "kazakhstan": "+7",
+                "kenya": "+254",
+                "kiribati": "+686",
+                "korea, north": "+850",
+                "korea, south": "+82",
+                "kuwait": "+965",
+                "kyrgyzstan": "+996",
+                "laos": "+856",
+                "latvia": "+371",
+                "lebanon": "+961",
+                "lesotho": "+266",
+                "liberia": "+231",
+                "libya": "+218",
+                "liechtenstein": "+423",
+                "lithuania": "+370",
+                "luxembourg": "+352",
+                "madagascar": "+261",
+                "malawi": "+265",
+                "malaysia": "+60",
+                "maldives": "+960",
+                "mali": "+223",
+                "malta": "+356",
+                "marshall islands": "+692",
+                "mauritania": "+222",
+                "mauritius": "+230",
+                "mexico": "+52",
+                "micronesia": "+691",
+                "moldova": "+373",
+                "monaco": "+377",
+                "mongolia": "+976",
+                "montenegro": "+382",
+                "morocco": "+212",
+                "mozambique": "+258",
+                "myanmar": "+95",
+                "namibia": "+264",
+                "nauru": "+674",
+                "nepal": "+977",
+                "netherlands": "+31",
+                "new zealand": "+64",
+                "nicaragua": "+505",
+                "niger": "+227",
+                "nigeria": "+234",
+                "north macedonia": "+389",
+                "norway": "+47",
+                "oman": "+968",
+                "pakistan": "+92",
+                "palau": "+680",
+                "panama": "+507",
+                "papua new guinea": "+675",
+                "paraguay": "+595",
+                "peru": "+51",
+                "philippines": "+63",
+                "poland": "+48",
+                "portugal": "+351",
+                "qatar": "+974",
+                "romania": "+40",
+                "russia": "+7",
+                "rwanda": "+250",
+                "saint kitts and nevis": "+1-869",
+                "saint lucia": "+1-758",
+                "saint vincent and the grenadines": "+1-784",
+                "samoa": "+685",
+                "san marino": "+378",
+                "sao tome and principe": "+239",
+                "saudi arabia": "+966",
+                "senegal": "+221",
+                "serbia": "+381",
+                "seychelles": "+248",
+                "sierra leone": "+232",
+                "singapore": "+65",
+                "slovakia": "+421",
+                "slovenia": "+386",
+                "solomon islands": "+677",
+                "somalia": "+252",
+                "south africa": "+27",
+                "south sudan": "+211",
+                "spain": "+34",
+                "sri lanka": "+94",
+                "sudan": "+249",
+                "suriname": "+597",
+                "sweden": "+46",
+                "switzerland": "+41",
+                "syria": "+963",
+                "taiwan": "+886",
+                "tajikistan": "+992",
+                "tanzania": "+255",
+                "thailand": "+66",
+                "togo": "+228",
+                "trinidad and tobago": "+1-868",
+                "tunisia": "+216",
+                "turkey": "+90",
+                "turkmenistan": "+993",
+                "tuvalu": "+688",
+                "uganda": "+256",
+                "ukraine": "+380",
+                "united arab emirates": "+971",
+                "united kingdom": "+44",
+                "united states": "+1",
+                "uruguay": "+598",
+                "uzbekistan": "+998",
+                "vanuatu": "+678",
+                "vatican city": "+379",
+                "venezuela": "+58",
+                "vietnam": "+84",
+                "yemen": "+967",
+                "zambia": "+260",
+                "zimbabwe": "+263"
+            };
+            
+            return countryCodes[countryName.toLowerCase()];
+        }
+
+        // Capitalize the first letter of the country name for better display
+        function capitalizeFirstLetter(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    </script>
+</body>
+</html>

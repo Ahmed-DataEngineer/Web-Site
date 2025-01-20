@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="fav.png" type="image/x-icon">
+    <title>Coin Toss Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #coin {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background-image: url('coin.png'); /* Replace with your coin image */
+            background-size: cover;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Coin Toss Game</h1>
+        <div id="coin"></div>
+        <p id="result"></p>
+        <button onclick="tossCoin()">Toss Coin</button>
+    </div>
+
+    <script>
+        function tossCoin() {
+            const coin = document.getElementById('coin');
+            const result = document.getElementById('result');
+            const random = Math.random();
+            
+            coin.style.transform = 'rotateX(180deg)';
+            
+            setTimeout(() => {
+                if (random < 0.5) {
+                    coin.style.transform = 'rotateX(0deg)';
+                    result.textContent = 'Heads!';
+                } else {
+                    coin.style.transform = 'rotateX(180deg)';
+                    result.textContent = 'Tails!';
+                }
+            }, 500);
+        }
+    </script>
+</body>
+</html>

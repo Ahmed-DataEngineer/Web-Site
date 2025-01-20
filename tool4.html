@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="fav.png" type="image/x-icon">
+    <title>Text Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .editor-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .editor {
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 200px;
+            font-size: 16px;
+        }
+        .toolbar {
+            margin-top: 10px;
+        }
+        .btn {
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <center>
+
+        <H1><strong><u> Text Editor</u></strong></H1>
+    </center>
+    <div class="editor-container">
+        <div class="toolbar">
+            <button class="btn" id="bold-btn">Bold</button>
+            <button class="btn" id="italic-btn">Italic</button>
+            <button class="btn" id="underline-btn">Underline</button>
+        </div>
+        <div class="editor" contenteditable="true" id="editor">
+            Start typing here...
+        </div>
+    </div>
+
+    <script>
+        const editor = document.getElementById("editor");
+        const boldBtn = document.getElementById("bold-btn");
+        const italicBtn = document.getElementById("italic-btn");
+        const underlineBtn = document.getElementById("underline-btn");
+
+        boldBtn.addEventListener("click", () => {
+            document.execCommand("bold", false, null);
+        });
+
+        italicBtn.addEventListener("click", () => {
+            document.execCommand("italic", false, null);
+        });
+
+        underlineBtn.addEventListener("click", () => {
+            document.execCommand("underline", false, null);
+        });
+    </script>
+</body>
+</html>

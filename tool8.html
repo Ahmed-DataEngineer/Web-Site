@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="fav.png" type="image/x-icon">
+    <title>Image Compressor Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #fileInput {
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+        #compressButton {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        #compressButton:hover {
+            background-color: #0056b3;
+        }
+
+        #output {
+            margin-top: 20px;
+        }
+
+        #compressedImage {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Compressor Tool</h1>
+        <input type="file" id="fileInput" accept="image/*">
+        <button id="compressButton">Compress Image</button>
+        <div id="output">
+            <h2>Compressed Image:</h2>
+            <img id="compressedImage" alt="Compressed Image">
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/compressorjs@1.0.6/dist/compressor.min.js"></script>
+    <script>
+        document.getElementById('compressButton').addEventListener('click', function () {
+            const fileInput = document.getElementById('fileInput');
+            const compressedImage = document.getElementById('compressedImage');
+
+            const file = fileInput.files[0];
+
+            if (file) {
+                // Compress the image
+                new Compressor(file, {
+                    quality: 0.6, // Set the quality (0 to 1, 1 is the highest quality)
+                    maxWidth: 800, // Set the max width of the compressed image
+                    maxHeight: 600, // Set the max height of the compressed image
+                    success(result) {
+                        // Create a URL for the compressed image and display it
+                        const compressedImageUrl = URL.createObjectURL(result);
+                        compressedImage.src = compressedImageUrl;
+                    },
+                    error(err) {
+                        console.error(err);
+                    }
+                });
+            } else {
+                alert("Please select an image first.");
+            }
+        });
+    </script>
+</body>
+</html>
